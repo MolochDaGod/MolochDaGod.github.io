@@ -27,6 +27,13 @@ jobs:
           ref: main
           path: playground
 
+      - name: Checkout Grudge Links landing page
+        uses: actions/checkout@v4
+        with:
+          repository: MolochDaGod/grudge-links
+          ref: main
+          path: grudge-links
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -41,6 +48,11 @@ jobs:
       - name: Build for molochdagod.github.io root
         working-directory: playground
         run: npm run build:root
+
+      - name: Publish Grudge Links landing page
+        run: |
+          mkdir -p playground/dist/grudge-links
+          cp grudge-links/index.html playground/dist/grudge-links/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -60,3 +72,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
